@@ -2,9 +2,9 @@
     // require('personels.php');
     require 'recordsManager.php';
 
-    // $pass = '12345';
-    // $id = '-1';
-    // $newresponse = new Personels($pass, $id);
+    $pass = '12345';
+    $id = '-1';
+    $newresponse = new Personels($pass, $id);
 
     // date_default_timezone_set('Asia/Manila');
     // $now = date('Y-m-d h:m:s A', time());
@@ -33,13 +33,13 @@
     // echo 'Password: ' . $newresponse->GetPasswordByID('017').'</br>';
     // echo 'Time Created: ' . $newresponse->GetCreateTimeByID('017');
 
-    $name = 'Johnny';
-    $id = '099';
-    $password = '12345';
-    $host = 'http://192.168.0.115:8090';
+    // $name = 'Johnny';
+    // $id = '099';
+    // $password = '12345';
+    // $host = 'http://192.168.0.115:8090';
 
-    $res = recordsManager::start($password,$host)
-                        ->addPerson($id,$name,'2');
+    // $res = recordsManager::start($password,$host)
+    //                     ->addPerson($id,$name,'2');
 
     // $res = recordsManager::start($password, $host)
     //             ->newRecords()

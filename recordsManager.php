@@ -24,12 +24,14 @@ class recordsManager{
 
     private $emp_id;
 
-    public function addPerson($id, $name, $allowFingerPrint){
+    public function addPerson($id, $name){
         $endpoint = '/person/create';
         $data = array(
             'id' => $id,
-            'person' => $name,
-            'fingerPermission' => $allowFingerPrint,
+            'name' => $name,
+            'fingerPermission' => 2,
+            'facePermission' => 2,
+            'passwordPermission' => 2,
         );
 
         $data_encoded = json_encode($data);
@@ -60,6 +62,34 @@ class recordsManager{
             'pass' => self::$password,
             'personId' => $this->emp_id
         );
+
+        $the_new_url = self::$endpoint.$url.'?'.http_build_query($params);
+        $curl = curl_init($the_new_url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $data = curl_exec($curl);
+
+        return $data;
+    }
+
+    public function updateFingerprint($id){
+        $this->emp_id = $id;
+        $data = $this->addFingerprint();
+        return $data;
+    }
+
+    public function addFace($id){
+        $params = array(
+            'pass' => self::$password,
+            'personId' => $id,
+        );
+        $url = self::$endpoint.'/face?'.http_build_query($params);
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $data = curl_exec($curl);
+
+        return $data;
     }
 
 }

@@ -1,8 +1,7 @@
 <?php
-
     require ('records.php');
 
-    $password = '12345';
+    $password = '54321';
     $id = '-1';
     $now = date('Y-m-d H:m:s', time());
 
@@ -26,8 +25,9 @@
     $endTime = GetOneDayAhead($now);
 
     $records = new Records($password, $id, '0', '0');
+
     // $records->Test();
-    $data = $records->GetResponse();
+    // $data = $records->GetResponse();
     // foreach($data as $d){
     //     echo $d['name'].'<br>';
     // }
@@ -35,7 +35,10 @@
 
     echo '<pre>';
     // var_dump($data);
+    // var_dump($data);
+
     var_dump($records->GetRecordsByID('999')->GetAll());
+
     // var_dump($records->GetRecordsByID('999')->AttendanceStatus());
     // var_dump($records->GetRecordsByID('017')->GetAll());
     // var_dump($records->GetRecordsByID('013')->GetTimeOut());

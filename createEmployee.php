@@ -82,7 +82,7 @@ label {
 </style>
 
 <body>
-    <form class="container" action="createEmployee.php" method="POST">
+    <form class="container" action="addnewrecords.php" method="POST">
         <div class="personInfo">
             <div>
                 <input type="text" name="name" class="person" placeholder="Enter First Name">
@@ -91,7 +91,7 @@ label {
                 <input type="text" class="person" placeholder="Enter Last Name">
             </div>
             <div>
-                <input type="text" name="id" class="person" placeholder="Enter Employee ID">
+                <input type="text" name="id" id="id" class="person" placeholder="Enter Employee ID">
             </div>
             <div>
                 <input type="number" name="" class="person" placeholder="Enter Contact Number">
@@ -105,14 +105,14 @@ label {
 
             <div>
                 <label for="label">Face Recognition:</label>
-                <input type="button" class="btnFace" placeholder="+">
+                <input type="button" onclick="getFacePhoto()" value="" class="btnFace" placeholder="+">
             </div>
             &nbsp;
             &nbsp;
             &nbsp;
             <div>
                 <label for="label">Fingerprint:</label>
-                <input type="button" class="btnFinger" placeholder="+">
+                <input type="button" onclick="getFingerprint()" class="btnFinger" placeholder="+">
             </div>
         </div>
         <button class="save">Save</button>
@@ -120,23 +120,29 @@ label {
 
 </body>
 
+<script type="text/javascript">
+    const getFacePhoto = () => {
+        console.log('Get Face Photo!')
+        const empIDTextBox = document.getElementById('id')
+        fetch(`createEmployeeHandler.php?id=${empIDTextBox.value}&type=face`)
+            .then(res => res.text())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(err => console.error(err));
+    }
+    const getFingerprint = () => {
+        console.log('Get Fingerprint!');
+        const empIDTextBox = document.getElementById('id')
+        fetch(`createEmployeeHandler.php?id=${empIDTextBox.value}&type=fingerprint`)
+            .then(res => res.text())
+            .then(data => {
+                console.log(data);
+            })
+            .catch(err => console.error(err));
+    }
+</script>
 </html>
-
-<?php
-
-require 'recordsManager.php';
-
-$endpoint = 'http://192.168.0.115:8090';
-$password = '12345';
-
-if(isset($_POST['name']) && isset($_POST['id'])){
-    $name = $_POST['name'];
-    $id = $_POST['id'];
-
-    recordsManager::start($password, $endpoint)
-                ->addPerson($name, $id, '2')
-                ->addFingerprint();
-}
 
 
 

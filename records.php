@@ -43,14 +43,17 @@ class Records{
         else{
             $endpoint = $endpoint.'/newFindRecords';
         }
+
         // echo $endpoint;
         //endpoint may be changed based on device ip and port:
+
         $params = [
             'pass' => $pass,
             'personID' => $id,
             'startTime' => $startTime,
             'endTime' => $endTime
         ];
+
         $query = http_build_query($params);
         $url = $endpoint.'?'.$query;
         $curl = curl_init($url);
@@ -67,6 +70,7 @@ class Records{
     /**
      * For testing purposes
      */
+
     public function Test(){
         echo '<pre>';
         var_dump($this->response);
@@ -77,10 +81,14 @@ class Records{
      * @return array Get all records data.
      */
     public function GetResponse(){
+        if(empty($this->response)) return [];
         return $this->response;
     }
 
     public function GetRecordsByID($id){
+        //Null checker pag walang laman, di na nya itutuloy
+        if(empty($this->response)) return;
+
         foreach($this->response as $r){
             if($r['personId'] == $id){
                 array_push($this->records, $r);
@@ -90,6 +98,7 @@ class Records{
     }
 
     public function GetRecordsByName($name){
+        if(empty($this->response)) return [];
         foreach($this->response as $r){
             if($r['name'] == $name){
                 array_push($this->records, $r);
@@ -108,8 +117,8 @@ class Records{
         }
         else
         {
-            throw new Exception('ERROR: no records found. Make sure you get records using GetRecordsByID() or GetRecordsByName()');
-            return;
+            echo 'ERROR: no records found. Make sure you get records using GetRecordsByID() or GetRecordsByName() <br> <br>';
+            return [];
         }
     }
 
@@ -118,6 +127,8 @@ class Records{
      * @return array Get all Attendance status based on input ID/Name.
      */
     public function AttendanceStatus(){
+        if ($this->records == null) return;
+
         $attendanceStatus = [];
         if(!empty($this->records)){
             foreach($this->records as $a)
