@@ -1,10 +1,12 @@
 <?php
     // require('personels.php');
-    require 'recordsManager.php';
+    // require 'recordsManager.php';
+    require 'records.php';
 
     $pass = '12345';
     $id = '-1';
-    $newresponse = new Personels($pass, $id);
+    // $newresponse = new Personels($pass, $id);
+    $records = new Records($pass,$id);
 
     // date_default_timezone_set('Asia/Manila');
     // $now = date('Y-m-d h:m:s A', time());
@@ -46,5 +48,6 @@
     //             ->addPerson($id,$name,$password)
     //             ->execute();
 
-    echo '<pre>';
-    var_dump($res);
+    // echo '<pre>';
+    // var_dump($res);
+    $records->Test();

@@ -120,28 +120,28 @@ label {
 
 </body>
 
-<script type="text/javascript">
-    const getFacePhoto = () => {
-        console.log('Get Face Photo!')
-        const empIDTextBox = document.getElementById('id')
-        fetch(`createEmployeeHandler.php?id=${empIDTextBox.value}&type=face`)
-            .then(res => res.text())
-            .then(data => {
-                console.log(data);
-            })
-            .catch(err => console.error(err));
-    }
-    const getFingerprint = () => {
-        console.log('Get Fingerprint!');
-        const empIDTextBox = document.getElementById('id')
-        fetch(`createEmployeeHandler.php?id=${empIDTextBox.value}&type=fingerprint`)
-            .then(res => res.text())
-            .then(data => {
-                console.log(data);
-            })
-            .catch(err => console.error(err));
-    }
-</script>
+    <script type="text/javascript">
+        const getFacePhoto = () => {
+            console.log('Get Face Photo!')
+            const empIDTextBox = document.getElementById('id')
+            fetch(`createEmployeeHandler.php?id=${empIDTextBox.value}&type=face`)
+                .then(res => res.text())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(err => console.error(err));
+        }
+        const getFingerprint = () => {
+            console.log('Get Fingerprint!');
+            const empIDTextBox = document.getElementById('id')
+            fetch(`createEmployeeHandler.php?id=${empIDTextBox.value}&type=fingerprint`)
+                .then(res => res.text())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(err => console.error(err));
+        }
+    </script>
 </html>
 
 
