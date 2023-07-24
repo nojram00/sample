@@ -1,7 +1,7 @@
 <?php
     require ('records.php');
 
-    $password = '54321';
+    $password = '12345';
     $id = '-1';
     $now = date('Y-m-d H:m:s', time());
 
@@ -37,7 +37,7 @@
     // var_dump($data);
     // var_dump($data);
 
-    var_dump($records->GetRecordsByID('999')->GetAll());
+    var_dump($records->GetRecordsByID('034')->GetAll());
 
     // var_dump($records->GetRecordsByID('999')->AttendanceStatus());
     // var_dump($records->GetRecordsByID('017')->GetAll());

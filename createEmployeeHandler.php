@@ -16,7 +16,7 @@ if (isset($_GET['id']) && isset($_GET['type'])) {
 
 }
 function fingerPrint($id){
-    $endpoint = 'http://192.168.1.59:8090';
+    $endpoint = 'http://192.168.0.115:8090';
     $password = '12345';
     $res = recordsManager::start($password,$endpoint)
                 ->updateFingerprint($id);
@@ -28,7 +28,7 @@ function fingerPrint($id){
     return $res;
 }
 function face($id){
-    $endpoint = 'http://192.168.1.59:8090';
+    $endpoint = 'http://192.168.0.115:8090';
     $password = '12345';
     $res = recordsManager::start($password, $endpoint)
         ->addFace($id);

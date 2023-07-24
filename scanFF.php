@@ -64,7 +64,7 @@
         <?php
         if (isset($_POST['scanFace'])) {
             // Face Recognition API Endpoint
-            $faceEndpoint = "http://192.168.0.115:8090/face/takeImg";
+            $faceEndpoint = "http://192.168.1.59:8090/face/takeImg";
             $pass = '12345';
             $personId = $_POST['personId'];
 
@@ -111,7 +111,7 @@
 
         if (isset($_POST['scanFingerprint'])) {
             // Fingerprint Recognition API Endpoint
-            $fingerprintEndpoint = 'http://192.168.0.115:8090/face/fingerRegist';
+            $fingerprintEndpoint = 'http://192.168.1.59:8090/face/fingerRegist';
             $pass = '12345';
             $personId = $_POST['personId'];
 

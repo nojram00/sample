@@ -1,13 +1,13 @@
 <?php
     require 'recordsManager.php';
 
-    $endpoint = 'http://192.168.1.59:8090';
+    $endpoint = 'http://192.168.0.115:8090';
     $password = '12345';
     if(isset($_POST['name']) && isset($_POST['id'])){
         $name = $_POST['name'];
         $id = $_POST['id'];
         recordsManager::start($password, $endpoint)
-                    ->addPerson($name, $id)
+                    ->addPerson($id, $name)
                     ->addFingerprint();
 
 
