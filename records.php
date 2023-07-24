@@ -109,6 +109,14 @@ class Records{
         return $this;
     }
 
+    public function GetAllRecords(){
+        if(empty($this->response)) return [];
+        foreach($this->response as $r){
+            array_push($this->records, $r);
+        }
+        return $this;
+    }
+
     /**
      * @return array Get all attendance records based on input ID/Name.
      */
@@ -152,7 +160,7 @@ class Records{
         if(!empty($this->records)){
             $timeOut = [];
             foreach($this->records as $a){
-                if($a['attendance']['attendanceStatus'] == 'Time Out'){
+                if($a['attendance']['attendanceStatus'] == 'Time Out' || $a['attendance']['attendanceStatus'] == 'End of work'){
                     array_push($timeOut, $a);
                 }
             }
@@ -172,7 +180,7 @@ class Records{
         if(!empty($this->records)){
             $timeIn = [];
             foreach($this->records as $a){
-                if($a['attendance']['attendanceStatus'] == 'Time In'){
+                if($a['attendance']['attendanceStatus'] == 'Time In' || $a['attendance']['attendanceStatus'] == 'On Work'){
                     array_push($timeIn, $a);
                 }
             }

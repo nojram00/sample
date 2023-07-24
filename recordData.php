@@ -28,8 +28,8 @@
         }
         .grid{
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-            width: 80%;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            width: 100%;
         }
         .grid-item-row{
             display: grid;
@@ -43,19 +43,55 @@
         .grid-header{
             font-weight: 700;
         }
+        .flex-row{
+            display: flex;
+            flex-direction: row;
+        }
+        .justify-center{
+            justify-content: center;
+        }
+        .align-item-center{
+            /* align-items: center; */
+            align-self: center;
+        }
     </style>
 </head>
 <body>
     <?php
     //Initialize
         require 'records.php';
+
         $records = new Records('12345',
-                    '-1','0','0');
-        $data = $records->GetResponse();
+            '-1','0','0');
+        // $data;
+        if(isset($_POST['attendance-status']))
+        {
+            $status = $_POST['attendance-status'];
+        }
+        else{
+            //Defaut status:
+            $status = 'all';
+        }
+        if($status == 'all'){
+            $data = $records->GetResponse();
+        }
+        if($status == 'On Work'){
+            $data = $records->GetAllRecords()->GetTimeIn();
+        }
+        if($status == 'End of work'){
+            $data = $records->GetAllRecords()->GetTimeOut();
+        }
     ?>
     <div class="flex-box">
         <div class="header">
-
+            <form action="recordData.php" method="POST" class="flex-row justify-center align-item-center">
+                <select name="attendance-status" id="">
+                <option value="all">All</option>
+                    <option value="On Work">On Work</option>
+                    <option value="End of work">End of Work</option>
+                </select>
+                <input type="submit" value="Filter">
+            </form>
         </div>
         <div class="main-container">
             <div class="grid">
@@ -108,6 +144,21 @@
                         foreach($data as $d){
                             print '<div class="grid-items">
                                     '.$d['attendance']['attendanceStatus'].'
+                                 </div>';
+                        }
+                    ?>
+                </div>
+                <!-- Time -->
+                <div class="grid-item-row">
+                    <div class="grid-items grid-header">
+                        Time
+                    </div>
+                    <?php
+                        date_default_timezone_set('Asia/Manila');
+                        foreach($data as $d){
+                            $date = date('Y-m-d h:i:s a',$d['time']/1000);
+                            print '<div class="grid-items">
+                                    '.$date.'
                                  </div>';
                         }
                     ?>
