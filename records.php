@@ -38,9 +38,11 @@ class Records{
             $endTime = '0';
         }
         if($endpoint == null){
+            //Default endpoint:
             $endpoint = 'http://192.168.0.115:8090/newFindRecords';
         }
         else{
+            //Custom endpoint:
             $endpoint = $endpoint.'/newFindRecords';
         }
 
@@ -202,7 +204,6 @@ class Records{
             return;
         }
     }
-
 
     /**
      * @return array Returns all End of Overtime data.

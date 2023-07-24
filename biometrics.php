@@ -62,6 +62,9 @@
 
             }
         }
+        <?php
+
+        ?>
     </script>
 </head>
 <body>
