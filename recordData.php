@@ -62,8 +62,9 @@
         require 'records.php';
 
         $records = new Records('12345',
-            '-1','0','0');
+            '-1','0','0', endpoint:'http://192.168.1.59:8090');
         // $data;
+        // $records->Test();
         if(isset($_POST['attendance-status']))
         {
             $status = $_POST['attendance-status'];
@@ -118,7 +119,7 @@
                         foreach($data as $d){
                             print '<div class="grid-items">
                                     '.$d['personId'].'
-                                 </div>';
+                                </div>';
                         }
                     ?>
                 </div>
@@ -142,9 +143,12 @@
                     </div>
                     <?php
                         foreach($data as $d){
-                            print '<div class="grid-items">
-                                    '.$d['attendance']['attendanceStatus'].'
-                                 </div>';
+                            $attendance = $d['attendance'];
+                            if(array_key_exists('attendanceStatus', $attendance)){
+                                print '<div class="grid-items">
+                                '.$attendance['attendanceStatus'].'
+                                </div>';
+                            }
                         }
                     ?>
                 </div>

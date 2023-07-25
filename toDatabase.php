@@ -2,7 +2,7 @@
     require 'records.php';
     try
     {
-        $pdo = new Pdo('mysql:host=localhost;port=8081;dbname=sample','root');
+        $pdo = new Pdo('mysql:host=localhost;port=3306;dbname=sample','root');
     }
     catch(PDOException $e)
     {
@@ -10,28 +10,53 @@
     }
 
     $records = new Records('12345',
-    '-1','0','0');
+    '-1','0','0', endpoint:'http://192.168.1.59:8090');
 
     $data = $records->GetResponse();
+    // print '<pre>';
+    // foreach($data as $d){
+    //     $attendance = $d['attendance'];
+    //     if(array_key_exists('attendanceStatus',$attendance))
+    //     var_dump($d['attendance']);
+    // }
 
     foreach($data as $d)
     {
+        echo '<pre>';
+        var_dump($d);
         date_default_timezone_set('Asia/Manila');
         $name = $d['name'];
         $id = $d['personId'];
-        $at_id = $d['attendanceId'];
-        $date = date('Y-m-d H:i:s', $d['time']/1000);
-        $pdo->prepare("INSERT INTO `records_data` (`Name`, `person_id`, `attendance_id`, `attendance_status`, `time`) VALUES ($name, $person_id, $at_id, $date)");
-    }
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+        $attendance = $d['attendance'];
+        if(array_key_exists('attendanceId', $attendance)){
+            $at_id = $attendance['attendanceId'];
+            datagetter::setID($at_id);
+        }
+        if(array_key_exists('attendanceStatus', $attendance)){
+            $at_s = $attendance['attendanceStatus'];
+            datagetter::setStatus($at_s);
+        }
 
-</body>
-</html>
+        $at_id = datagetter::getID();
+        $at_s = datagetter::getStatus();
+        $date = date('Y-m-d H:i:s', $d['time']/1000);
+        $pdo->prepare("INSERT INTO `records_data` (`Name`, `person_id`, `attendance_id`, `attendance_status`, `time`) VALUES ('$name', '$id', '$at_id', '$at_s', '$date')")->execute();
+
+    }
+
+    class datagetter{
+        private static $id;
+        private static $status;
+        public static function setID($id){
+            self::$id = $id;
+        }
+        public static function getID(){
+            return self::$id;
+        }
+        public static function setStatus($status){
+            self::$status = $status;
+        }
+        public static function getStatus(){
+            return self::$status;
+        }
+    }

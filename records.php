@@ -160,8 +160,11 @@ class Records{
         if(!empty($this->records)){
             $timeOut = [];
             foreach($this->records as $a){
-                if($a['attendance']['attendanceStatus'] == 'Time Out' || $a['attendance']['attendanceStatus'] == 'End of work'){
-                    array_push($timeOut, $a);
+                $attendance = $a['attendance'];
+                if(array_key_exists('attendanceStatus', $attendance)){
+                    if($a['attendance']['attendanceStatus'] == 'Time Out' || $a['attendance']['attendanceStatus'] == 'End of work'){
+                        array_push($timeOut, $a);
+                    }
                 }
             }
             return $timeOut;
@@ -180,8 +183,11 @@ class Records{
         if(!empty($this->records)){
             $timeIn = [];
             foreach($this->records as $a){
-                if($a['attendance']['attendanceStatus'] == 'Time In' || $a['attendance']['attendanceStatus'] == 'On Work'){
-                    array_push($timeIn, $a);
+                $attendance = $a['attendance'];
+                if(array_key_exists('attendanceStatus',$attendance)){
+                    if($a['attendance']['attendanceStatus'] == 'Time In' || $a['attendance']['attendanceStatus'] == 'On Work'){
+                        array_push($timeIn, $a);
+                    }
                 }
             }
             return $timeIn;
