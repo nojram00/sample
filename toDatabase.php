@@ -13,11 +13,12 @@
     '-1','0','0', endpoint:'http://192.168.1.59:8090');
 
     $data = $records->GetResponse();
-
+    // datagetter::$isDone = true;
     foreach($data as $d)
     {
-        echo '<pre>';
-        var_dump($d);
+        datagetter::$isDone = false;
+        // echo '<pre>';
+        // var_dump($d);
         date_default_timezone_set('Asia/Manila');
         $name = $d['name'];
         $id = $d['personId'];
@@ -35,10 +36,16 @@
         $at_s = datagetter::getStatus();
         $date = date('Y-m-d H:i:s', $d['time']/1000);
         $pdo->prepare("INSERT INTO `records_data` (`Name`, `person_id`, `attendance_id`, `attendance_status`, `time`) VALUES ('$name', '$id', '$at_id', '$at_s', '$date')")->execute();
-
     }
+    // datagetter::$isDone = true;
+
+    // while(!datagetter::$isDone){
+    //     echo 'please wait...';
+    // }
+    // echo 'success!!';
 
     class datagetter{
+        public static $isDone;
         private static $id;
         private static $status;
         public static function setID($id){
