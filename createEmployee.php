@@ -121,6 +121,7 @@ label {
 </body>
 
     <script type="text/javascript">
+
         const getFacePhoto = () => {
             console.log('Get Face Photo!')
             const empIDTextBox = document.getElementById('id')
