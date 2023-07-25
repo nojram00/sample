@@ -13,12 +13,6 @@
     '-1','0','0', endpoint:'http://192.168.1.59:8090');
 
     $data = $records->GetResponse();
-    // print '<pre>';
-    // foreach($data as $d){
-    //     $attendance = $d['attendance'];
-    //     if(array_key_exists('attendanceStatus',$attendance))
-    //     var_dump($d['attendance']);
-    // }
 
     foreach($data as $d)
     {
