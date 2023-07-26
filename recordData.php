@@ -146,7 +146,7 @@
                     </div>
                     <?php
                         foreach($data as $d){
-                            $attendance = $d['attendance'];
+                            $attendance = isset($d['attendance']) ? $d['attendance'] : [];
                             if(array_key_exists('attendanceStatus', $attendance)){
                                 print '<div class="grid-items">
                                 '.$attendance['attendanceStatus'].'
