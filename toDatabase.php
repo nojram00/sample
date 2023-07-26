@@ -23,13 +23,19 @@
         $name = $d['name'];
         $id = $d['personId'];
         $attendance = $d['attendance'];
-        if(array_key_exists('attendanceId', $attendance)){
-            $at_id = $attendance['attendanceId'];
-            datagetter::setID($at_id);
-        }
-        if(array_key_exists('attendanceStatus', $attendance)){
-            $at_s = $attendance['attendanceStatus'];
-            datagetter::setStatus($at_s);
+        echo '<pre>';
+        var_dump($attendance);
+
+        if(is_array($attendance))
+        {
+            if(array_key_exists('attendanceId', $attendance)){
+                $at_id = $attendance['attendanceId'];
+                datagetter::setID($at_id);
+            }
+            if(array_key_exists('attendanceStatus', $attendance)){
+                $at_s = $attendance['attendanceStatus'];
+                datagetter::setStatus($at_s);
+            }
         }
 
         $at_id = datagetter::getID();

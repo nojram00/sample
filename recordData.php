@@ -130,8 +130,11 @@
                     </div>
                     <?php
                         foreach($data as $d){
+                            // echo '<pre>';
+                            // var_dump($d);
+                            $attendanceId = isset($d['attendance']['attendanceId']) ? $d['attendance']['attendanceId'] : '';
                             print '<div class="grid-items">
-                                    '.$d['attendance']['attendanceId'].'
+                                    '.$attendanceId.'
                                  </div>';
                         }
                     ?>
@@ -163,7 +166,7 @@
                             $date = date('Y-m-d h:i:s a',$d['time']/1000);
                             print '<div class="grid-items">
                                     '.$date.'
-                                 </div>';
+                                   </div>';
                         }
                     ?>
                 </div>
