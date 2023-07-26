@@ -28,7 +28,7 @@
         }
         .grid{
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
             width: 100%;
         }
         .grid-item-row{
@@ -146,7 +146,7 @@
                     </div>
                     <?php
                         foreach($data as $d){
-                            $attendance = $d['attendance'];
+                            $attendance = isset($d['attendance']) ? $d['attendance'] : [];
                             if(array_key_exists('attendanceStatus', $attendance)){
                                 print '<div class="grid-items">
                                 '.$attendance['attendanceStatus'].'
@@ -169,6 +169,31 @@
                                    </div>';
                         }
                     ?>
+                </div>
+                <!-- Delete Button -->
+                <div class="grid-item-row">
+                    <div class="grid-items grid-header">
+
+                    </div>
+                    <?php
+                        date_default_timezone_set('Asia/Manila');
+                        foreach($data as $d){
+                            // $date = date('Y-m-d h:i:s a',$d['time']/1000);
+                            $startTime = isset($d['startTime']) ? $d['startTime'] : '0';
+                            $endTime = isset($d['endTime']) ? $d['endTime'] : '0';
+                            $id = isset($d['id']) ? $d['id'] : '-1';
+                            print '<button class="grid-items" onclick="deleteRecord('.$id.''.$startTime.''.$endTime.')">
+                                    Delete
+                                   </button>';
+                        }
+                    ?>
+                    <script type="text/javascript">
+                        deleteRecord = (id, startTime, endTime) => {
+                           fetch(`192.168.1.59:8090/newDeleteRecordsByUnixTime?pass=12345&personId=${id}&startTime=${startTime}&endTime=${endTime}`)
+                           .then(res => res.json())
+                           .catch(e => console.error(e));
+                        }
+                    </script>
                 </div>
             </div>
         </div>
