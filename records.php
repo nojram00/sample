@@ -39,7 +39,7 @@ class Records{
         }
         if($endpoint == null){
             //Default endpoint:
-            $endpoint = 'http://192.168.0.115:8090/newFindRecords';
+            $endpoint = 'http://192.168.1.59:8090/newFindRecords';
         }
         else{
             //Custom endpoint:
