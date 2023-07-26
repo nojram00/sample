@@ -1,67 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Biometric Recognition</title>
-    <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-    }
-
-    h1 {
-        margin-bottom: 20px;
-    }
-
-    label {
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    input {
-        padding: 5px;
-        margin-bottom: 10px;
-        width: 200px;
-    }
-
-    #send {
-        background-color: greenyellow;
-        width: 210px;
-    }
-
-    #postButton {
-        padding: 10px 20px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    #postButton:hover {
-        background-color: #45a049;
-    }
-
-    #responseDiv {
-        margin-top: 20px;
-        border: 1px solid #ccc;
-        padding: 10px;
-        border-radius: 5px;
-    }
-    </style>
-</head>
-
-<body>
-    <h1>Biometric Recognition</h1>
-    <form method="post">
-        <label for="personId">Enter Person ID:</label>
-        <input type="text" id="personId" name="personId" required>
-        <br>
-        <input type="submit" id="send" name="scanFace" value="Scan Face">
-        <input type="submit" id="send" name="scanFingerprint" value="Scan Fingerprint">
-    </form>
-    <div id="responseDiv">
-        <?php
+<?php
         if (isset($_POST['scanFace'])) {
             // Face Recognition API Endpoint
             $faceEndpoint = "http://192.168.1.59:8090/face/takeImg";
@@ -99,10 +36,9 @@
                     // Process the API response (you may want to handle success/error messages accordingly)
                     $faceDecodedResponse = json_decode($faceResponse, true);
                     if ($faceDecodedResponse["success"]) {
-                        echo "Face Registered Successfully!";
+                    echo "<script>alert('Fingerprint registered successfully!');  window.history.go(-1);</script>";
                     } else {
-                        echo "" . $faceDecodedResponse["msg"];
-                        echo "" . $faceDecodedResponse["success"];
+                        echo "<script>alert('"  . $faceDecodedResponse["msg"]. "'); window.history.go(-1);</script>";
                     }
                 }
                 curl_close($faceCurl);
@@ -142,15 +78,11 @@
                 // Process the API response (you may want to handle success/error messages accordingly)
                 $fingerprintDecodedResponse = json_decode($fingerprintResponse, true);
                 if ($fingerprintDecodedResponse["success"]) {
-                    echo "Fingerprint Registered Successfully!";
+                    echo "<script>alert('Fingerprint registered successfully!');  window.history.go(-1);</script>";
                 } else {
-                    echo "" . $fingerprintDecodedResponse["msg"];
+                    echo "<script>alert('" . $fingerprintDecodedResponse["msg"] . "'); window.history.go(-1);</script>";
                 }
             }
             curl_close($fingerprintCurl);
         }
         ?>
-    </div>
-</body>
-
-</html>
