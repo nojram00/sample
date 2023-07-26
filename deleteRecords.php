@@ -25,7 +25,7 @@ button {
         $endpoint = 'http://192.168.1.59:8090/newDeleteRecords';
 
         // Parameters for the request
-        $pass = '54321';
+        $pass = '12345';
         $personId = $_POST['personId'];
         $startTime = '2021-07-18 01:00:00';
         $endTime = '2024-07-18 01:00:00';
@@ -56,10 +56,27 @@ button {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         $response = curl_exec($ch);
+
+
+
+
+
+
+    // Check for cURL errors
+        if (curl_errno($ch)) {
+            echo "Error: " . curl_error($ch);
+        } else {
+            // Process the API response (you may want to handle success/error messages accordingly)
+            $decodedResponse = json_decode($response, true);
+            if ($decodedResponse["success"]) {
+                echo "Records Deleted Successfully!";
+            } else {
+                echo "" . $decodedResponse["msg"];
+            }
+        }
         curl_close($ch);
 
-        // Output the response
-        echo '<p>Records Deleted Successfully</p>';
+ 
     }
     ?>
 </body>
